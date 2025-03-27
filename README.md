@@ -20,8 +20,14 @@ Install dependencies
   mvn install
 ```
 
-Start the server
+Start the server with default profile
 
 ```bash
   mvn spring-boot:run
+```
+
+Start the server with dev profile
+
+```bash
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ```
