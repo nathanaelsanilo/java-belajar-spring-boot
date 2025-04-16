@@ -1,12 +1,13 @@
 package com.nathan.belajar_springboot.web;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import com.nathan.belajar_springboot.config.ApplicationProperties;
 
-@RestController
+@Controller
 @RequestMapping("v1/hello")
 public class HelloResource {
 
@@ -17,8 +18,11 @@ public class HelloResource {
     }
 
     @GetMapping
-    public String hello() {
-        return applicationProperties.getEmailUser() + " : " + applicationProperties.getEmailSmtp() + " : "
-                + applicationProperties.getEmailPassword();
+    public String hello(Model model) {
+        model.addAttribute("name", "model nathan");
+        return "hello";
+        // return applicationProperties.getEmailUser() + " : " +
+        // applicationProperties.getEmailSmtp() + " : "
+        // + applicationProperties.getEmailPassword();
     }
 }
