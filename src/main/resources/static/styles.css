@@ -1,0 +1,15 @@
+.page {
+  height: 100vh;
+  display: flex;
+  width: 100%;
+}
+
+.page--center {
+  align-items: center;
+  justify-content: center;
+}
+
+.form__container {
+  max-width: 50%;
+  flex: 1;
+}
