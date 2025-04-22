@@ -4,10 +4,12 @@ public class Author {
 
     private String id;
     private String name;
+    private String description;
 
-    public Author(String id, String name) {
+    public Author(String id, String name, String description) {
         this.id = id;
         this.name = name;
+        this.description = description;
     }
 
     public void setId(String id) {
@@ -24,6 +26,14 @@ public class Author {
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String greeting() {

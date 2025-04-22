@@ -7,11 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nathan.belajar_springboot.dto.AuthorDto;
+import com.nathan.belajar_springboot.model.Author;
 import com.nathan.belajar_springboot.service.AuthorService;
 
 @Controller
@@ -27,19 +29,23 @@ public class AuthorController {
         return "author/create-author";
     }
 
-    @GetMapping("result")
-    public String resultAuthor(Model model) {
-        // List<String> authorNames = authorService.getAuthorNames();
-        // AuthorDto authorDto = new AuthorDto(authorNames.get(0));
-        // model.addAttribute("authorDto", authorDto);
+    @GetMapping("result/{index}")
+    public String resultAuthor(Model model, @PathVariable int index) {
+        Author author = authorService.getByIndex(index);
+        model.addAttribute("author", author);
         return "author/author-result";
+    }
+
+    @GetMapping("list")
+    public String listAuthor(Model model) {
+        List<Author> authors = authorService.getList();
+        model.addAttribute("authors", authors);
+        return "author/author-list";
     }
 
     @PostMapping("new")
     public String submitForm(@ModelAttribute AuthorDto authorDto, RedirectAttributes redirectAttributes) {
-        System.out.println(authorDto);
-        // authorService.createAuthor(authorDto);
-        redirectAttributes.addFlashAttribute("authorDto", authorDto);
-        return "redirect:/author/result";
+        authorService.createAuthor(authorDto);
+        return "redirect:/author/list";
     }
 }
