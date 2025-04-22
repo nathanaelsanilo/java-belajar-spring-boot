@@ -14,7 +14,9 @@ public class AuthorService {
     private List<Author> authors = new ArrayList<>();
 
     public void createAuthor(AuthorDto authorDto) {
-        Author author = new Author(String.valueOf(authors.size() + 1), authorDto.name(), authorDto.description());
+        Author author = new Author();
+        author.setDescription(authorDto.description());
+        author.setName(authorDto.name());
         authors.add(author);
     }
 
