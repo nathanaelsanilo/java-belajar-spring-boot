@@ -3,30 +3,31 @@ package com.nathan.belajar_springboot.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nathan.belajar_springboot.dto.AuthorDto;
 import com.nathan.belajar_springboot.model.Author;
 import com.nathan.belajar_springboot.service.AuthorService;
 
-@Controller
+@RestController
 @RequestMapping("/author")
 public class AuthorController {
 
     @Autowired
     private AuthorService authorService;
 
-    @GetMapping("new")
-    public String createAuthor(Model model) {
-        model.addAttribute("authorDto", new AuthorDto("", ""));
-        return "author/create-author";
+    @PostMapping()
+    public AuthorDto createAuthor(@RequestBody AuthorDto authorDto) {
+        return authorService.createAuthor(authorDto);
     }
 
     @GetMapping("result/{index}")
@@ -36,11 +37,9 @@ public class AuthorController {
         return "author/author-result";
     }
 
-    @GetMapping("list")
-    public String listAuthor(Model model) {
-        List<Author> authors = authorService.getList();
-        model.addAttribute("authors", authors);
-        return "author/author-list";
+    @GetMapping()
+    public List<AuthorDto> listAuthor(@RequestParam(name = "name", required = false) String name) {
+        return authorService.getByName(name);
     }
 
     @PostMapping("new")
