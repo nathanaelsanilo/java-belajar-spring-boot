@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nathan.belajar_springboot.dto.AuthorDto;
+import com.nathan.belajar_springboot.dto.ResultPageResponseDto;
 import com.nathan.belajar_springboot.model.Author;
 import com.nathan.belajar_springboot.service.AuthorService;
 
@@ -38,8 +39,14 @@ public class AuthorController {
     }
 
     @GetMapping()
-    public List<AuthorDto> listAuthor(@RequestParam(name = "name", required = false) String name) {
-        return authorService.getByName(name);
+    public ResultPageResponseDto<AuthorDto> listAuthor(
+            @RequestParam(name = "name", required = false) String authorName,
+            @RequestParam(name = "sortBy", defaultValue = "name", required = false) String sortBy,
+            @RequestParam(name = "dir", defaultValue = "asc", required = false) String sortDir,
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "limit", defaultValue = "10", required = false) int limit) {
+        // return authorService.getByName(name);
+        return authorService.findAuthors(page, limit, sortBy, sortDir, authorName);
     }
 
     @PostMapping("new")
