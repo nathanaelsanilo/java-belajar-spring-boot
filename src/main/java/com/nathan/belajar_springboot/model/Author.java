@@ -1,10 +1,13 @@
 package com.nathan.belajar_springboot.model;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,6 +21,9 @@ public class Author {
 
     @Column(nullable = true, length = 500, columnDefinition = "varchar(500)")
     private String description;
+
+    @ManyToMany(mappedBy = "authors")
+    private Set<Book> books;
 
     public void setName(String name) {
         this.name = name;
@@ -41,5 +47,17 @@ public class Author {
 
     public String greeting() {
         return "Hello " + name;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 }
