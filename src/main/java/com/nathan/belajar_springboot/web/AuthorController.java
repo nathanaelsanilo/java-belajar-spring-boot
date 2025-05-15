@@ -1,7 +1,5 @@
 package com.nathan.belajar_springboot.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +17,8 @@ import com.nathan.belajar_springboot.dto.ResultPageResponseDto;
 import com.nathan.belajar_springboot.model.Author;
 import com.nathan.belajar_springboot.service.AuthorService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/author")
 public class AuthorController {
@@ -27,7 +27,7 @@ public class AuthorController {
     private AuthorService authorService;
 
     @PostMapping()
-    public AuthorDto createAuthor(@RequestBody AuthorDto authorDto) {
+    public AuthorDto createAuthor(@RequestBody @Valid AuthorDto authorDto) {
         return authorService.createAuthor(authorDto);
     }
 
